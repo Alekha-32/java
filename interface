@@ -1,0 +1,32 @@
+package oopsConcepts;
+
+public interface Multiple {
+	
+	
+	int twoMultiple(int a, int b);
+	int threeMultiple(int a, int b,int c);
+	
+
+}
+package oopsConcepts;
+
+public abstract class Yes implements Multiple {
+	
+  public int twoMultiple(int num, int num1) {
+	  return num*num1;
+  }
+ 
+}
+package oopsConcepts;
+
+public class Yes1 extends Yes {
+
+	public int threeMultiple(int n1, int n2, int n3) {
+		return n1*n2*n3;
+	}
+	public static void main(String[] args) {
+	Yes1 d = new Yes1();
+		System.out.println(d.twoMultiple(2,3));
+		System.out.println(d.threeMultiple(2,6,7));
+	}
+}
