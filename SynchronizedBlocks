@@ -1,0 +1,61 @@
+package threads;
+
+public class SynchronizedBlock {
+	
+	
+	public void wish(String name) {
+		
+		 //synchronized(this) {
+		synchronized(SynchronizedBlock.class) {
+	//	synchronized(b) {
+		for(int i=0;i<5;i++) {
+			System.out.print("Good Morning :");
+			try {
+				Thread.sleep(2000);
+			}
+			catch(InterruptedException e) {
+				System.out.println(e);
+			}
+			System.out.println(name);
+		}
+		 }
+		
+		
+	}
+	
+	
+
+
+}
+package threads;
+
+public class MyRunnable1 extends Thread {
+	
+	String name;
+	SynchronizedBlock b;
+	public MyRunnable1(String name, SynchronizedBlock b) {
+		this.name = name;
+		this.b =b;
+	}
+	
+	
+	public void run() {
+		b.wish(name);
+	}
+
+}
+package threads;
+
+public class MainThread {
+	
+	public static void main(String[] args) {
+		SynchronizedBlock b = new SynchronizedBlock();
+	//	SynchronizedBlock b1 = new SynchronizedBlock();
+		MyRunnable1 t1 = new MyRunnable1("Alekha chowdary",b);
+		MyRunnable1 t2 = new MyRunnable1("Srilakshmi",b);
+	//	MyRunnable1 t3 = new MyRunnable1("Hanumantharao",b1);
+		t1.start();
+		t2.start();
+	}
+
+}
