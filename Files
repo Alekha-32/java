@@ -1,0 +1,55 @@
+package files;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.SequenceInputStream;
+
+public class InputStreamExample {
+
+	public static void main(String[] args) {
+		
+		try {
+			
+			//SequenceInputStream
+			//FileInputStream f1 = new FileInputStream("D://testout.txt");
+			//FileInputStream f2 = new FileInputStream("D://testin.txt");
+			//SequenceInputStream seq = new SequenceInputStream(f1, f2);
+			
+			
+		//	FileInputStream f = new FileInputStream("D://testout.txt");
+			//BufferedInputStream is = new BufferedInputStream(f);
+			
+			
+		//	FileOutputStream f = new FileOutputStream("D://testout.txt");
+		//	OutputStream os =  new BufferedOutputStream(f);
+			/*
+			 * String s = "Alekha chowdary has joined as a intern in full creative"; byte []
+			 * a = s.getBytes(); os.write(a); os.flush(); os.close(); f.close();
+			 */
+			//int i = f.read();
+			//System.out.println((char)i);
+			//System.out.println("Sucess ");
+			// SequenceFileOutput
+			
+			FileInputStream f1 = new FileInputStream("D://testin.txt");
+	         FileInputStream f2 = new FileInputStream("D://testin1.txt");
+	         FileInputStream fout = new FileInputStream("D://testout.txt");
+	         SequenceInputStream sis = new SequenceInputStream(f1,f2);
+			  int i=0; 
+			  while((i=sis.read())!=-1)    
+			   {    
+			  //   fout.write(i);        
+			   }    
+		//	System.out.println("Success");
+			
+			  sis.close();
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+}
