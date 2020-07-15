@@ -1,0 +1,43 @@
+package Strings;
+
+public class CountCharcters {
+	
+	
+	public static void countChar(String str) { // a -2lekh  
+		                                           //a-2,l-1,e-1,
+		int [] count = new int[str.length()];
+		  str = str.replace(" ","");
+		for(int i=0;i<str.length();i++) {
+		count[str.charAt(i)]++; 
+		}
+		char a [] = new char[str.length()];
+		for(int i=0;i<str.length();i++) {
+			a[i] = str.charAt(i);
+			int flag =0;
+			for(int j=0;j<=i;j++) {
+				if(str.charAt(i)==a[j]) {
+					flag++;
+				}
+				
+			}
+			
+		if(flag ==1) {
+			System.out.println(str.charAt(i)+"-"+count[str.charAt(i)]);
+			//return str.charAt(i)+"-"+count[str.charAt(i)];
+		}
+		}
+		
+
+		
+		
+		
+		
+	}
+	public static void main(String[] args) {
+	CountCharcters.countChar("a l e k h a c h o  w d a  r y");
+	//	CountCharcters.countChar(null);
+	}
+	
+	
+
+}
