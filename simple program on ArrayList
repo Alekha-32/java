@@ -1,0 +1,68 @@
+package Collections;
+
+public class Book {
+	
+	
+	int id;
+	String name;
+	String authorName;
+	String publisher;
+	int pageNo;
+	
+	public Book(int id,String name, String authorName, String publisher, int pageNo) {
+		this.id = id;
+		this.name = name;
+		this.authorName = authorName;
+		this.publisher = publisher;
+		this.pageNo = pageNo;
+	}
+	
+
+
+}
+
+package Collections;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+public class ArrayList101 {
+	
+	public static void main(String[] args) {
+		
+		//ArrayList<Book> l1 = new ArrayList<>();
+		LinkedList<Book> l1 = new LinkedList<>();
+		
+		Book b1 = new Book(1,"youcanwin","Shivkera","BPD",200);
+		Book b2 = new Book(2,"thinkAndGrowRich", "NepoleanHill","enadu",350);
+		Book b3 = new Book(3,"copycat","Someone","abn",400);
+		Book b4 = new Book(4,"thinkAndGrow", "Hill","enadu",350);
+	
+		l1.add(b1);
+		l1.add(b2);
+		l1.add(b3);
+		for(Book a:l1) {
+			System.out.println(a.id+" "+a.name+" "+a.authorName+" "+a.publisher+" "+a.pageNo);
+			
+		}
+		//System.out.println("After replace the elements");
+		/*
+		 * l1.set(2,b4); for(Book a:l1) {
+		 * System.out.println(a.id+" "+a.name+" "+a.authorName+" "+a.publisher+" "+a.
+		 * pageNo);
+		 * 
+		 * }
+		 */
+		System.out.println(l1.isEmpty());
+		
+		
+		
+		
+		
+		
+	}
+
+}
