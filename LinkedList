@@ -1,0 +1,18 @@
+package Collections;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+
+public class Linkedlist {
+
+	
+	public static void main(String[] args) {
+		LinkedList<LinkedList<String>> x = new LinkedList<LinkedList<String>>();
+		
+		x.add(new LinkedList<String>(Arrays.asList("Alekha","chowdary")));
+		
+		x.add(new LinkedList<String>(Arrays.asList("coffee","Tea","GreenTea","BlackTea")));
+		
+		System.out.println(x);
+	}
+}
