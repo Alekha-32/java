@@ -1,0 +1,52 @@
+package Collections;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+public class Hashset {
+	
+	public static void main(String[] args) {
+		Set<String> h = new HashSet<String>();
+		h.add("srikanth");
+		h.add("chowdary");
+		h.add("vamsi");
+		h.add("shekar");
+		h.add(null);
+		h.add(null);
+		h.add("vamsi"); //duplicate element
+		System.out.println(h.size()); // size of the hashtable
+		System.out.println(h.isEmpty()); // returns boolean value;
+		System.out.println(h.contains("chowdary")); // return boolean value true or false; // true
+	//	sort(h);
+		Iterator<String> itr = h.iterator();
+		while(itr.hasNext()) {
+			System.out.print(itr.next()+" ");
+			
+		}
+		System.out.println();
+		System.out.println(h.remove("cho"));
+		Collection<String> h1 = new HashSet<String>();
+		h1.add("1");
+		h1.add("2");
+		h1.add("4");
+		h1.add("5");
+		h1.add("6");
+		h1.add("7");
+		h1.add("89");
+		h1.add("5");
+		
+	   h1.addAll(h);
+	   
+	   Iterator<String> itr1 = h1.iterator();
+	   while(itr1.hasNext()) {
+		   System.out.print(itr1.next()+" ");
+	   }
+	   h1.clear();
+	
+		
+	}
+
+}
