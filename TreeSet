@@ -1,0 +1,42 @@
+package Collections;
+
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.TreeSet;
+
+public class Treeset {
+	
+	
+	public static void main(String[] args) {
+	 TreeSet<Integer> h = new TreeSet<Integer>();
+	 
+	 h.add(1);
+	 h.add(2);
+	 h.add(3);
+
+	 h.add(4);
+
+	 h.add(5);
+
+	 h.add(9);
+
+	 h.add(10);
+	 h.add(10);
+	// Collections.sort(h);
+	 Iterator<Integer> itr = h.iterator();
+	 while(itr.hasNext()) {
+		 System.out.print(itr.next()+" ");
+	 }
+ //System.out.println("Lowest value"+ h.pollFirst());
+	// System.out.println("Highest value "+h.pollLast());
+	 
+	 System.out.println();
+Iterator<Integer>  itr1 = h.descendingIterator();
+while(itr1.hasNext()) {
+	System.out.print(itr1.next()+" ");
+}
+	 
+	}
+
+
+}
