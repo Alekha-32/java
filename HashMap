@@ -1,0 +1,66 @@
+package Collections;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
+public class Hashmap {
+	
+	
+	public static void main(String[] args) {
+		
+		Map<Integer, String> h = new HashMap<Integer, String>();
+		h.put(101,"alekha");
+		h.put(102,"Chowdary");
+		h.put(103,"Hari");
+		h.put(104,"srikanth");
+		h.put(103,"shekar");
+		h.put(105, "alkeha");
+		h.put(106, "shekar");
+		h.put(null, null);
+		System.out.println(h.get("Hari")); // if you are trying to get key through value gives null value 
+		/*
+		 * Iterator<Map.Entry<Integer, String>> itr = h.entrySet().iterator();
+		 * 
+		 * while(itr.hasNext()) { Map.Entry<Integer, String> entry = itr.next();
+		 * System.out.println(entry.getKey() +" "+ entry.getValue());
+		 * //System.out.println(entry.getValue());
+		 * 
+		 * }
+		 */
+		/*
+		 * System.out.println(h.remove(105)); // remove particular key value
+		 * System.out.println(h.containsKey(101));// boolean value
+		 * System.out.println(h.containsValue("chowdary")); // boolean value
+		 * System.out.println(h.isEmpty()); // boolean value
+		 * System.out.println(h.size()); // return size of the map
+		 * System.out.println(h.get(101)); h.clear(); System.out.println(h.size()); //
+		 * after clear it returns size zero;
+		 */
+		/*
+		 * for(Entry<Integer, String> entry:h.entrySet()) {
+		 * System.out.println(entry.getKey()+" "+ entry.getValue()); }
+		 */
+		/*
+		 * for(Integer it : h.keySet()) { System.out.println(it+" "); } for(String
+		 * it:h.values()) { System.out.println(it+" "); }
+		 */
+		/*
+		Map<Integer, String> s = new HashMap<>();
+		s.put(987584888,"srilamshi");
+		s.put(100000000,"Landline");
+		s.put(100000001," mobile");
+		s.put(857959955,"realme");
+		s.putAll(h);
+		
+		Iterator<Map.Entry<Integer, String>> itr1 = s.entrySet().iterator();
+		while(itr1.hasNext()) {
+			Map.Entry<Integer,String> s1 = itr1.next();
+			System.out.println(s1.getKey()+" "+ s1.getValue());
+		}
+	}
+*/
+		
+	}
+}
