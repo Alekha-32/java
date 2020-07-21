@@ -1,0 +1,52 @@
+package com.alekha.tasks;
+import java.util.*;
+
+	 public class RunningApps {
+	     static int display(String arr[], int foc, int n) {
+	         int focus=0;
+	         for (int i = 0; i < n; i++) {
+	             if (i == foc) {
+	                 System.out.print("<" + arr[i] + ">");
+	                 focus = foc;
+	             } else {
+	                 System.out.print("  "+arr[i]+"   ");
+	             }
+	         }
+	         System.out.println();
+	         return focus;
+	     }
+
+	     public static void main(String[] args) {
+	         Scanner scn = new Scanner(System.in);
+	         String arr[] = {
+	             "chrome",
+	             "explorer",
+	             "safari",
+	             "firefox"
+	         };
+	         System.out.println("1. Current");
+	         System.out.println("2. Previous");
+	         System.out.println("3. Next");
+	         System.out.println("4. Exit");
+	         int focus = 0;
+	         int n = arr.length;
+	         int choice = 1;
+	         do {
+	             System.out.println("Enter your Choice :");
+	             choice = scn.nextInt();
+	             if (choice == 1) {
+	                 display(arr, 0, n);
+	             } else if (choice == 2 && focus == 0) {
+	                 focus = display(arr, n - 1, n);
+	             } else if (choice == 3 && focus == n - 1) {
+	                 focus = display(arr, 0, n);
+	             } else {
+	                 if (choice == 2) {
+	                     focus = display(arr, focus - 1, n);
+	                 } else if (choice == 3) {
+	                     focus = display(arr, focus + 1, n);
+	                 }
+	             }
+	         }while (choice != 4);     
+	     }
+	 }
