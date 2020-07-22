@@ -1,0 +1,78 @@
+package com.alekha.tasks;
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class RunningApps {
+	
+	static void display(int index, List<String>l) {
+		
+		for(int i=0;i<l.size();i++) {
+			if(i==index) {
+				System.out.print("<"+l.get(index)+">");
+			}
+			else {
+				System.out.print(" "+l.get(i)+" ");
+			}
+		}
+		System.out.println();
+		
+	}
+	
+	public static void main(String[] args) throws IOException {
+		int choice =0;
+		BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
+	List<String> l = new ArrayList<String>();
+	int index =0;
+		l.add("Anywhereworks");
+		l.add("Chorme");
+		l.add("Eclipse");
+		l.add("Sublime text");
+	do {
+		System.out.println("1: current ");
+		System.out.println("2: Next");
+		System.out.println("3: Previous");
+		System.out.println("4:Exit");
+		choice = Integer.parseInt(sc.readLine());
+		switch(choice) {
+		
+		case 1:
+
+			display(index,l);
+		 break;
+		case 2:
+			index++;
+			if(index >=l.size()) {
+			index =0;
+			}
+			display(index,l);
+  
+			break;
+			
+		case 3:
+			index--;
+			if(index <=-1) {
+				index = l.size()-1;
+			}
+			display(index,l);
+		break;
+		case 4:
+	     System.out.println("Exit the program");
+	     break;
+		case 5:
+			System.out.println("None of these");
+			break;
+		}
+		
+	}
+		while(choice !=4);
+			
+	}
+
+
+}
