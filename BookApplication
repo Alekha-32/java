@@ -1,0 +1,249 @@
+package com.alekha.modular;
+
+import java.util.ArrayList;
+
+public class BookDetails {
+	
+	private int book_id;
+	private String first_Name;
+	private String last_Name;
+	private String book_Name;
+	private String publisher_Name;
+	private String language;
+	private int page_No;
+	
+	
+	public BookDetails(int book_id, String first_Name, String last_Name, String book_Name, String publisher_Name,
+			String language, int page_No) {
+		super();
+		this.book_id = book_id;
+		this.first_Name = first_Name;
+		this.last_Name = last_Name;
+		this.book_Name = book_Name;
+		this.publisher_Name = publisher_Name;
+		this.language = language;
+		this.page_No = page_No;
+	}
+	public BookDetails(String book_Name, String language) {
+	
+		this.book_Name = book_Name;
+		this.language = language;
+	}
+	public int getBook_id() {
+		return book_id;
+	}
+	public String getFirst_Name() {
+		return first_Name;
+	}
+	public String getLast_Name() {
+		return last_Name;
+	}
+	public String getBook_Name() {
+		return book_Name;
+	}
+	public String getPublisher_Name() {
+		return publisher_Name;
+	}
+	public String getLanguage() {
+		return language;
+	}
+	public int getPage_No() {
+		return page_No;
+	}
+}
+
+package com.alekha.modular;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class ImplementClass {
+
+	 List<BookDetails> l = new ArrayList<BookDetails>();
+	
+	
+
+		public boolean addNewBook(BookDetails books) {
+			if (findBook(books.getBook_Name()) > 0) {
+				System.out.println("Name is already added");
+			} else {
+				l.add(books);
+
+			}
+			return true;
+		}
+		
+		public boolean updateBook(BookDetails oldBook ,BookDetails newBook) {
+			int foundPosition = findBook(oldBook);
+			if(foundPosition < 0) {
+				return false;
+			}
+			
+			this.l.set(foundPosition, newBook);
+			System.out.println(newBook.getBook_Name());
+			return true;
+		}
+		
+		public boolean removeBook(BookDetails book) {
+			int foundPosition = findBook(book);
+			if(foundPosition < 0) {
+				return false;
+			}
+			this.l.remove(foundPosition);
+			return true;
+		}
+
+		private int findBook(BookDetails name) {
+			return this.l.indexOf(name);
+		}
+		private int findBook(String bookName) {
+			 for(int i =0; i < l.size(); i++) {
+				BookDetails book = this.l.get(i);
+				 if(book.getBook_Name().equals(bookName)) {
+					 return i;
+				 }
+			 }
+			 return -1;
+		}
+		
+		/*
+		 * public String queryContact(Contacts contact) { if(findContact(contact) >= 0)
+		 * { return contact.getName(); } return null; }
+		 */
+		
+		public BookDetails checkBook_Name(String book_Name) {
+			int position = findBook(book_Name);
+			if(position >=0) {
+				return this.l.get(position);
+			}
+			return null;
+		}
+		
+		
+		public void display() {
+			System.out.println("Contact list");
+			Iterator<BookDetails> itr = l.iterator();
+			while(itr.hasNext()) {
+			BookDetails c = itr.next();
+			System.out.println(c.getBook_id()+" "+c.getFirst_Name()+" "+c.getLast_Name()+" "+c.getBook_Name()+" "+ c.getPublisher_Name()+" "+c.getLanguage()+" "+c.getPage_No());
+			System.out.println(" ");
+			}
+		}
+	}
+	 
+
+	
+package com.alekha.modular;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+	static ImplementClass imp = new ImplementClass();
+	static BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
+	public static void main(String[] args) throws IOException {	
+		int choice =0;
+		
+		 do {
+			 System.out.println("_____BookDetails Details______");
+				System.out.println("1: Add a new Book");
+				System.out.println("2: Update Book");
+				System.out.println("3: Remove the Book");
+				System.out.println("4: favourite Book");
+				System.out.println("5:display the book Details");
+				System.out.println("6: exit");
+			choice = Integer.parseInt(sc.readLine());
+			
+			switch (choice) {
+			case 1:
+				addNewBook();
+				break;
+				
+			case 2:
+				updateBook();
+				break;
+			case 3:
+				removeBook();
+				break;
+			case 4:
+				//favourite();
+				break;
+			case 5:
+				imp.display();
+				break;
+			default: 
+				System.out.println("None of these");
+ 
+			 
+			}
+		 }
+			while(choice !=8);
+				
+	}
+  private static void addNewBook() throws IOException {
+	  
+	  int book_id = Integer.parseInt(sc.readLine());
+	  String first_Name = sc.readLine();
+	  String last_Name = sc.readLine();
+	  String book_Name = sc.readLine();
+	  String publisher_Name = sc.readLine();
+	  String language = sc.readLine();
+	  int page_No = Integer.parseInt(sc.readLine());
+	  BookDetails newBook = new BookDetails(book_id,first_Name,last_Name,book_Name,publisher_Name,language,page_No);
+	  if(imp.addNewBook(newBook)) {
+		  System.out.println("book_id = "+ book_id +" "+"first_Name = "+ first_Name+ " "+" last_Name =  "+ last_Name+" "+" book_Name = "+book_Name + " "+"pubisher_Name = "+ publisher_Name+" "+"Language = "+language+"page_No = "+ page_No );
+	  }
+	  else {
+		  System.out.println("Already on file");
+	  }
+  }
+	
+	private static void updateBook() throws IOException {
+		String bookName = sc.readLine();
+		BookDetails extBook = imp.checkBook_Name(bookName);
+		if(extBook == null) 
+		{
+			System.out.println("Cannot found contact");
+			return;
+		}
+		
+		String book_name = sc.readLine();
+		String language = sc.readLine();
+		BookDetails newBook = new BookDetails(book_name,language);
+		if(imp.updateBook(extBook, newBook)) 
+		{
+			System.out.println("Successfully updated");
+		}else {
+			System.out.println("Error Updating Contact");
+		}
+	}
+	
+	private static void removeBook() throws IOException {
+		String book_Name = sc.readLine();
+		BookDetails exContact = imp.checkBook_Name(book_Name);
+		if(exContact == null) 
+		{
+			System.out.println("Cannot found contact");
+			return;
+		}
+		
+		if(imp.removeBook(exContact)) {
+			System.out.println("Successfully deleted");
+		}else {
+			System.out.println("Error Deleting Contact");
+		}
+	}
+}
+	
+
+
+
+	
+
+	
+	
+	
+
