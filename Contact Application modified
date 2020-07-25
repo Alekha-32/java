@@ -1,0 +1,293 @@
+package com.alekha.modular;
+
+public class Contacts {
+	private String first_Name;
+	private String last_Name;
+	private String phoneNumber;
+	private String email;
+	
+	
+	
+	public Contacts(String first_Name,String last_Name,String phoneNumber,String email) {
+		this.first_Name = first_Name;
+		this.last_Name = last_Name;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+	}
+	public Contacts(String first_Name,String last_Name, String phoneNumber) {
+		this.first_Name  = first_Name;
+		this.last_Name = last_Name;
+		this.phoneNumber = phoneNumber;
+	}
+	public Contacts() {
+
+	}
+	public String getEmail() {
+		return email;
+	}
+
+	
+	public String getFirst_Name() {
+		return first_Name;
+	}
+	public String getLast_Name() {
+		return last_Name;
+	}
+ 
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setFirst_Name(String first_Name) {
+		this.first_Name = first_Name;
+	}
+	public void setLast_Name(String last_Name) {
+		this.last_Name = last_Name;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+		
+ 
+}
+package com.alekha.modular;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class ImplementClass {
+
+	 static List<BookDetails> l = new ArrayList<BookDetails>();
+	
+	
+
+		public boolean addNewBook(BookDetails books) {
+			if (findBook(books.getBook_Name()) > 0) {
+				System.out.println("Name is already added");
+			} else {
+				l.add(books);
+
+			}
+			return true;
+		}
+		
+		public boolean updateBook(BookDetails oldBook ,BookDetails newBook) {
+			int foundPosition = findBook(oldBook);
+			if(foundPosition < 0) {
+				return false;
+			}
+			
+			this.l.set(foundPosition, newBook);
+			System.out.println(newBook.getBook_Name());
+			return true;
+		}
+		
+		public boolean removeBook(BookDetails book) {
+			int foundPosition = findBook(book);
+			if(foundPosition < 0) {
+				return false;
+			}
+			this.l.remove(foundPosition);
+			return true;
+		}
+
+		private int findBook(BookDetails name) {
+			return this.l.indexOf(name);
+		}
+		private int findBook(String bookName) {
+			 for(int i =0; i < l.size(); i++) {
+				BookDetails book = this.l.get(i);
+				 if(book.getBook_Name().equals(bookName)) {
+					 return i;
+				 }
+			 }
+			 return -1;
+		}
+		
+		/*
+		 * public String queryContact(Contacts contact) { if(findContact(contact) >= 0)
+		 * { return contact.getName(); } return null; }
+		 */
+		
+		public BookDetails checkBook_Name(String book_Name) {
+			int position = findBook(book_Name);
+			if(position >=0) {
+				return this.l.get(position);
+			}
+			return null;
+		}
+		
+		
+		public static void displayContacts() {
+			System.out.println("Contact list");
+			Iterator<BookDetails> itr = l.iterator();
+			while(itr.hasNext()) {
+			BookDetails c = itr.next();
+			System.out.println(c.getBook_id()+" "+c.getFirst_Name()+" "+c.getLast_Name()+" "+c.getBook_Name()+" "+ c.getPublisher_Name()+" "+c.getLanguage()+" "+c.getPage_No());
+			System.out.println(" ");
+			}
+		}
+	}
+	 
+
+	
+package com.alekha.modular;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.regex.Pattern;
+import java.util.List;
+import java.util.ArrayList;
+
+
+public class Main {
+	static MobilePhone mp = new MobilePhone();
+ static MobilePhone f = new MobilePhone();
+	static List<String> l = new ArrayList<String>();
+	static BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
+	public static void main(String[] args) throws IOException {	
+		int choice =0;
+		
+		 do {
+			 System.out.println("_____Contact Details______");
+				System.out.println("1: Add a new contact");
+				System.out.println("2: Update contact");
+				System.out.println("3: Remove the contact");
+				System.out.println("4: Favorite contact ");
+				System.out.println("5: Display the contact");
+			choice = Integer.parseInt(sc.readLine());
+			
+			switch (choice) {
+			case 1:
+				addNewContact();
+				break;
+				
+			case 2:
+				updateContact();
+				break;
+			case 3:
+				removeContact();
+				break;
+			case 5:
+				mp.displayContacts();
+				break;
+			default: 
+				System.out.println("None of these");
+			}
+		 }
+			while(choice !=6);
+		 }
+	private static void addNewContact() throws IOException {
+		System.out.print("Enter the First_name:");
+		String first_Name = sc.readLine();
+		System.out.println();
+		System.out.print("Enter the Last_name: ");
+		String last_Name = sc.readLine();
+		System.out.println();
+		System.out.print("Enter your phone number:");
+		String phone = sc.readLine();
+		System.out.println();
+		System.out.print("Enter your email_id:");
+		String email = sc.readLine();
+		 if(isValid(email)) {
+			System.out.println("valid");
+			
+			Contacts newContact = new Contacts(first_Name, last_Name, phone,email);
+			if (mp.addNewContact(newContact)) {
+				System.out.println("first_Name: " + first_Name + "last_Name: " + last_Name + " " + " phone :" + phone + "Email : "+ email);;
+			}
+		 }
+			else {
+				System.out.println("Not valid");
+			
+		}
+		//Contacts newContact = new Contacts(first_Name, last_Name, phone);
+		/*
+		 * if (mp.addNewContact(newContact)) { System.out.println("first_Name: " +
+		 * first_Name + "last_Name: " + last_Name + " " + " phone :" + phone +
+		 * "Email : "+ email);; }
+		 */
+		}
+	
+	private static void updateContact() throws IOException {
+		String name = sc.readLine();
+		Contacts extContact = mp.checkContact(name);
+		if(extContact == null) 
+		{
+			System.out.println("Cannot found contact");
+			return;
+		}
+		String newFirst_Name = sc.readLine();
+		String newLast_Name  = sc.readLine();
+		String newNumber = sc.readLine();
+		Contacts newContact = new Contacts(newFirst_Name,newLast_Name, newNumber);
+		if(mp.updateContact(extContact, newContact)) 
+		{
+			System.out.println("Successfully updated");
+		}else {
+			System.out.println("Error Updating Contact");
+		}
+	}
+	
+	private static void removeContact() throws IOException {
+		String name = sc.readLine();
+		Contacts exContact = mp.checkContact(name);
+		if(exContact == null) 
+		{
+			System.out.println("Cannot found contact");
+			return;
+		}
+		
+		if(mp.removeContact(exContact)) {
+			System.out.println("Successfully deleted");
+		}else {
+			System.out.println("Error Deleting Contact");
+		}
+	}
+	
+
+/*ublic   static String isValid(String email) throws IOException 
+{ 
+	BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
+	int flag=1;
+	String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
+						"[a-zA-Z0-9_+&*-]+)*@" + 
+						"(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+						"A-Z]{2,7}$"; 
+						
+	Pattern pat = Pattern.compile(emailRegex);  
+	 if(pat.matcher(email).matches()) {
+		 flag =1;
+	 }
+		 
+	 else {
+		 System.out.println("Enter correct email_Id");
+		 String email1 = sc.readLine();
+		 isValid(email1);
+	 }
+	 return email;
+}*/
+	public static boolean isValid(String email) throws IOException {
+		BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
+		int i=1;
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
+							"[a-zA-Z0-9_+&*-]+)*@" + 
+							"(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+							"A-Z]{2,7}$"; 
+							
+		Pattern pat = Pattern.compile(emailRegex);  
+		 if(pat.matcher(email).matches()) {
+			 System.out.println("Yes, you have entered correct email_id");
+		 }
+		 else {
+			 System.out.print("Enter your correct Email_id:");
+			 String email1 = sc.readLine();
+			 isValid(email1); 
+		 }
+	return true;
+	}
+}
