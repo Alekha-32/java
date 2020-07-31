@@ -1,0 +1,325 @@
+package com.contact.application;
+
+public class Contacts {
+	private String first_Name;
+	private String last_Name;
+	private String phone_no;
+	private String email_id;
+	private boolean isFavorite;
+	
+	public boolean isFavorite() {
+		return isFavorite;
+	}
+	public void setIsFavorite(boolean isFavorite) {
+		this.isFavorite= isFavorite;
+	}
+	public String getFirst_Name() {
+		return first_Name;
+	}
+	public void setFirst_Name(String first_Name) {
+		this.first_Name = first_Name;
+	}
+	public String getLast_Name() {
+		return last_Name;
+	}
+	public void setLast_Name(String last_Name) {
+		this.last_Name = last_Name;
+	}
+	public String getPhone_no() {
+		return phone_no;
+	}
+	public void setPhone_no(String phone_no) {
+		this.phone_no = phone_no;
+	}
+	public String getEmail_id() {
+		return email_id;
+	}
+	public void setEmail_id(String email_id) {
+		this.email_id = email_id;
+	}
+	
+	
+	
+}
+package com.contact.application;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+public class ServiceContact {
+	static List<Contacts> listOfContacts = new ArrayList<Contacts>();
+	static BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
+	public static void addNewContact() throws IOException {
+		Contacts b = new Contacts();
+		System.out.print("Enter your first Name: ");
+		b.setFirst_Name(sc.readLine());
+		System.out.println();
+		System.out.print("Enter your last_Name: ");
+		b.setLast_Name(sc.readLine());
+		System.out.println();
+		System.out.print("Enter your phone_number: ");
+		b.setPhone_no(sc.readLine());
+		if (Utility.isValidPhone_no(b.getPhone_no())) {
+			System.out.println("Okay! , correct");
+		} else {
+			b.setPhone_no(sc.readLine());
+			System.out.println(Utility.isValidPhone_no(b.getPhone_no()));
+		}
+		System.out.println();
+		System.out.print("Enter your Email_id: ");
+		b.setEmail_id(sc.readLine());
+		if (Utility.isValid(b.getEmail_id())) {
+			System.out.println("Okay ! , correct");
+		} else {
+			b.setEmail_id(sc.readLine());
+			System.out.println(Utility.isValid(b.getEmail_id()));
+		}
+
+		System.out.println("Do you want as a favorite Contact: true/false");
+		b.setIsFavorite(Boolean.parseBoolean(sc.readLine()));
+		if (b.isFavorite()) {
+			listOfContacts.add(b);
+		}
+		else {
+		listOfContacts.add(b);
+	}
+	}
+	public static boolean updateContact(String phone_no) throws IOException {
+		Contacts m = new Contacts();
+		int pos = isAvailble(phone_no);
+		if (pos < 0) {
+			return false;
+		} else {
+			System.out.print("Enter your first Name: ");
+			m.setFirst_Name(sc.readLine());
+			System.out.println();
+			System.out.print("Enter your last_Name: ");
+			m.setLast_Name(sc.readLine());
+			System.out.println();
+			System.out.print("Enter your phone_number: ");
+			m.setPhone_no(sc.readLine());
+			if (Utility.isValidPhone_no(m.getPhone_no())) {
+				System.out.println("Okay! , correct");
+			} else {
+				m.setPhone_no(sc.readLine());
+				System.out.println(Utility.isValidPhone_no(m.getPhone_no()));
+			}
+			System.out.println();
+			System.out.print("Enter your Email_id: ");
+			m.setEmail_id(sc.readLine());
+			if (Utility.isValid(m.getEmail_id())) {
+				System.out.println("Okay ! , correct");
+			}
+			listOfContacts.set(pos, m);
+			return true;
+		}
+		}
+
+	public static boolean remove(String phone_no) throws IOException {
+		int pos = isAvailble(phone_no);
+		if (pos < 0) {
+			return false;
+		} else {
+			listOfContacts.remove(pos);
+			return true;
+		}
+	}
+
+	public static int isAvailble(String contactPhoneNumber) {
+		for (int i = 0; i < listOfContacts.size(); i++) {
+			Contacts phone = listOfContacts.get(i);
+			if (phone.getPhone_no().equals(contactPhoneNumber)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public static void search() throws IOException {
+		int flag =0;
+		System.out.println("Search first_Name:");
+		String first_Name = sc.readLine();
+		Iterator<Contacts> it = listOfContacts.iterator();
+		while (it.hasNext()) {
+			Contacts p = it.next();
+			if (p.getFirst_Name().equals(first_Name)) {
+				System.out.println(p.getFirst_Name() + " " + p.getLast_Name() + " " + " " + p.getPhone_no() + " "
+						+ p.getEmail_id());
+				flag =1;
+			}
+		}
+		if(flag==0) {
+			System.out.println("Name not found!!");
+		}
+	}
+
+	public static void display() {
+		if (listOfContacts.size() <= 0) {
+			System.out.println("No Contact in the list");
+		}
+		else  {
+			iteration(false);
+		}
+	}
+	public static void favorite() {
+		if (listOfContacts.size() <= 0) {
+			System.out.println("No Contact in the list");
+		}
+		else {
+			  iteration(true); 
+		}
+	}
+	public static void iteration(boolean b) {
+	      Collections.sort(listOfContacts, new NameSorting());
+		Iterator<Contacts> itr = listOfContacts.iterator();
+		while(itr.hasNext()) 
+		{
+			Contacts k = itr.next();
+			if(k.isFavorite() && b ) {
+				System.out.println(k.getFirst_Name()+" "+ k.getLast_Name()+" "+k.getPhone_no()+" "+k.getEmail_id());
+			}
+			else if(!b) {
+				System.out.println(k.getFirst_Name()+" "+ k.getLast_Name()+" "+k.getPhone_no()+" "+k.getEmail_id());
+			}
+			
+		
+		}
+	}
+}
+	
+	
+package com.contact.application;
+
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Utility {
+
+	public static boolean isValidPhone_no(String phone_no) throws IOException {
+
+		Pattern p = Pattern.compile("(0/91)?[7-9][0-9]{9}");
+		Matcher m = p.matcher(phone_no);
+		if (m.find() && m.group().equals(phone_no)) {
+			return true;
+		} else {
+			System.out.println("Enter your correct mobile_No:");
+			return false;
+
+		}
+	}
+		public static boolean isValid(String email) throws IOException {
+			String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+					+ "A-Z]{2,7}$";
+
+			Pattern pat = Pattern.compile(emailRegex);
+			if (pat.matcher(email).matches()) {
+				return true;
+			} else {
+				System.out.print("Enter your correct mail_id : ");
+				return false;
+			}
+		}
+}
+package com.contact.application;
+
+import java.util.Comparator;
+
+
+public class NameSorting implements Comparator<Contacts> {
+	
+	 public int compare(Contacts o1, Contacts o2) {
+         Contacts c1 = (Contacts) o1;
+         Contacts c2 = (Contacts) o2;
+         int res =  c1.getFirst_Name().compareToIgnoreCase(c2.getFirst_Name());
+         if (res != 0)
+             return res;
+         return c1.getLast_Name().compareToIgnoreCase(c2.getLast_Name());
+     }
+	}
+
+package com.contact.application;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+public class ContactApplication {
+	public static void main(String[] args) throws IOException {
+		Contacts b = new Contacts();
+		BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
+		int choice = 0;
+		do {
+			System.out.println("____________________________");
+			System.out.println("1: Add a contact Details");
+			System.out.println("2: update a contact");
+			System.out.println("3: Remove the contact");
+			System.out.println("4: Favorite contact ");
+			System.out.println("5: Display the contact");
+			System.out.println("6: Search contact details");
+			choice = Integer.parseInt(sc.readLine());
+			switch (choice) {
+			case 1:
+				ServiceContact.addNewContact();
+				break;
+			case 2:
+				if (ServiceContact.listOfContacts.size() <= 0) {
+					System.out.println("No Contact in the list");
+				}
+				else {
+				b.setPhone_no(sc.readLine());
+				if(ServiceContact.updateContact(b.getPhone_no())) {
+						 System.out.println(" Details have been updated");
+				 }
+				 else {
+					 System.out.println("Phone number is not in list");
+				 }
+				}
+				break;
+			case 3:
+				if (ServiceContact.listOfContacts.size() <= 0) {
+					System.out.println("No Contact in the list");
+				}
+				else {
+				b.setPhone_no(sc.readLine());
+				if(ServiceContact.remove(b.getPhone_no())) {
+					System.out.println("Deleted Succuessfully");
+				}
+				else {
+					System.out.println("The number is not in  list");
+				}
+				}
+				break;
+			case 4:
+				System.out.println("Favorite List");
+			ServiceContact.favorite();
+				break;
+			case 5:
+				System.out.println("Contact List");
+				ServiceContact.display();
+                    break;
+			case 6:
+				if (ServiceContact.listOfContacts.size() <= 0) {
+					System.out.println("No Contact in the list");
+				}
+				else {
+			     ServiceContact.search();
+				}
+			break;
+			}
+		} while (choice != 7);
+
+	}
+
+		
+	}
+
+	
+
+
